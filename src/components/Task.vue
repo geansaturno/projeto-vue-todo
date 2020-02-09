@@ -1,6 +1,6 @@
 <template>
   <div class="task" :class="{task_done: done}">
-    <div class="task-status" @click="action()"/>
+    <div class="task-status" @click="$emit('statusChange')"/>
     <div class="task-name">{{name}}</div>
   </div>
 </template>
@@ -16,7 +16,6 @@ export default {
       type: Boolean,
       default: false,
     },
-    action: Function,
   },
 };
 </script>

@@ -14,23 +14,16 @@ describe('Taks', () => {
     expect(cp.get('.task-name').text()).toBe(taskName);
   });
 
-  it('No clique deve executar a ação desejada', () => {
-    let number = 0;
-    const expectedFunction = () => {
-      number += 2;
-    };
-
+  it('No clique deve disparar um evento de \'statusChange\'', () => {
     const cp = shallowMount(Task, {
       propsData: {
         name: 'Marcar exame',
         done: true,
-        action: expectedFunction,
       },
     });
 
     cp.get('.task-status').trigger('click');
-
-    expect(number).toBe(2);
+    expect(cp.emitted('statusChange')).not.toBeUndefined();
   });
 
   describe('Task Done', () => {

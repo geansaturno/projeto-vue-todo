@@ -1,17 +1,16 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <todo-title :text="'Tarefas'"/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue';
+import TodoTitle from '@/components/TodoTitle.vue';
 
 export default {
   name: 'App',
   components: {
-    HelloWorld,
+    TodoTitle,
   },
 };
 </script>

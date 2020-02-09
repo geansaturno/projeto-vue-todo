@@ -32,16 +32,10 @@ export default {
     height: 20px;
     border: 2px solid #3333;
     border-radius: 50%;
-    ::before {
-      content: "0";
-    }
   }
 
   &-name {
     padding-left: 10px;
-    ::before {
-      content: "0";
-    }
   }
 
   &_done {
@@ -51,7 +45,7 @@ export default {
         font-style: italic;
       }
       &-status {
-        background-color: aquamarine;
+        background-color: chartreuse;
       }
     }
   }

@@ -10,6 +10,8 @@ module.exports = {
       include: path.resolve(__dirname, '../'),
     });
 
+    config.resolve.alias['@'] = '/home/geansaturno/dev/projeto-vue-todo/src';
+
     // Return the altered config
     return config;
   }

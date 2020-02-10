@@ -24,6 +24,7 @@ export default {
 .task {
   padding: 5px 10px;
   border: 1px solid #efefef;
+  border-bottom: none;
   display: flex;
 
   &-status {

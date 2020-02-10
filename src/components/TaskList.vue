@@ -33,7 +33,6 @@ export default {
     &-list {
       list-style: none;
       padding: 0;
-      max-width: 340px;
       margin: 0 auto;
       &-item {
         &:first-child .task{

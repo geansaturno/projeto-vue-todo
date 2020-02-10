@@ -1,6 +1,7 @@
 import { shallowMount } from '@vue/test-utils';
 import TaskCreator from '@/components/TaskCreator.vue';
 import Task from '@/models/Task.model';
+import Vue from 'vue';
 
 describe('TakCreator', () => {
   it('Deve enviar a tarefa por evento quando teclar enter', () => {
@@ -44,15 +45,14 @@ describe('TakCreator', () => {
     expect(cp.emitted('newTask')[0][0].done).toBe(false);
   });
 
-  it('Após a tarefa ser enviada, o campo deve ser apagado', () => {
+  it('Após a tarefa ser enviada, o campo deve ser apagado', async () => {
     const cp = shallowMount(TaskCreator);
 
     const inputFiled = cp.get('.task-creator-input');
     inputFiled.setValue('Marcar dentista');
     inputFiled.trigger('keyup.enter');
 
-    setTimeout(() => {
-      expect(inputFiled.element.value).toBe('');
-    }, 100);
+    await Vue.nextTick();
+    expect(inputFiled.element.value).toBe('');
   });
 });

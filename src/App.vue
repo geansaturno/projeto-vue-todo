@@ -11,7 +11,9 @@ import TodoTitle from '@/components/TodoTitle.vue';
 import TaskCreator from '@/components/TaskCreator.vue';
 import TaskList from '@/components/TaskList.vue';
 
-import Task from '@/models/Task.model';
+import TaskListStorage from '@/libs/TaskListStorage';
+
+const storage = new TaskListStorage();
 
 export default {
   name: 'App',
@@ -20,19 +22,19 @@ export default {
     TaskCreator,
     TaskList,
   },
+  mounted() {
+    this.tasks = storage.getTasks();
+  },
   data() {
     return {
       tasks: [
-        new Task('Ir ao dentista'),
-        new Task('Ir ao mercado'),
-        new Task('Marcar Consulta', true),
-        new Task('Limpar a casa'),
       ],
     };
   },
   methods: {
     addTask(task) {
       this.tasks.push(task);
+      storage.setTasks(this.tasks);
     },
   },
 };

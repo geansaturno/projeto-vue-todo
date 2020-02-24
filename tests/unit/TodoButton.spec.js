@@ -37,4 +37,14 @@ describe('Todo Button', () => {
       expect(cp.classes()).toContain('btn-secondary');
     });
   });
+
+  describe('Evento', () => {
+    it('Deve disparar o evento de clique quando receber o clique', () => {
+      const cp = shallowMount(TodoButton, { propsData: { text: 'Apagar' } });
+
+      cp.trigger('click');
+      expect(cp.emitted('click')).toBeDefined();
+      expect(cp.emitted('click')).toHaveLength(1);
+    });
+  });
 });

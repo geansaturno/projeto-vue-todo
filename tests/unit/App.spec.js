@@ -72,4 +72,35 @@ describe('App', () => {
       ).toBe(taskName);
     });
   });
+
+  describe('Função de Apagar Tarefas Concluidas', () => {
+    it('Ao clicar em apagar, deve limpar as tarefas concluidas e atualizar o localStorage', async () => {
+      let cp = mount(App);
+      const inputTask = cp.get('.task-creator-input');
+
+      const tasksName = ['Ir ao cabelereiro', 'ir o shopping', 'ir ao pediatra'];
+      tasksName.forEach((taskName) => {
+        inputTask.setValue(taskName);
+        inputTask.trigger('keyup.enter');
+      });
+      await Vue.nextTick();
+
+      let taskList = cp.findAll('.task-list-item');
+      taskList.at(0).get('.task-status').trigger('click');
+      await Vue.nextTick();
+
+      cp.get('.todo-btn').trigger('click');
+      await Vue.nextTick();
+
+      taskList = cp.findAll('.task-list-item');
+
+      expect(taskList).toHaveLength(2);
+
+      cp = mount(App);
+      await Vue.nextTick();
+      taskList = cp.findAll('.task-list-item');
+
+      expect(taskList).toHaveLength(2);
+    });
+  });
 });

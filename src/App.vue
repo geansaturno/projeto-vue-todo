@@ -3,6 +3,7 @@
     <todo-title :text="'Tarefas'"/>
     <task-creator @newTask="addTask"/>
     <task-list :tasks="tasks"/>
+    <todo-button :text="'Apagar Concluidos'" :btnStyle="'secondary'" @click="removeDones"/>
   </div>
 </template>
 
@@ -10,6 +11,7 @@
 import TodoTitle from '@/components/TodoTitle.vue';
 import TaskCreator from '@/components/TaskCreator.vue';
 import TaskList from '@/components/TaskList.vue';
+import TodoButton from '@/components/TodoButton.vue';
 
 import TaskListStorage from '@/libs/TaskListStorage';
 
@@ -20,6 +22,7 @@ export default {
   components: {
     TodoTitle,
     TaskCreator,
+    TodoButton,
     TaskList,
   },
   mounted() {
@@ -34,6 +37,10 @@ export default {
   methods: {
     addTask(task) {
       this.tasks.push(task);
+      storage.setTasks(this.tasks);
+    },
+    removeDones() {
+      this.tasks = this.tasks.filter((task) => !task.done);
       storage.setTasks(this.tasks);
     },
   },

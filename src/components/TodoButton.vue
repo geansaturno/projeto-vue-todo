@@ -1,6 +1,7 @@
 <template>
   <button class="todo-btn btn"
-    :class="{'btn-primary' : btnStyle == 'primary', 'btn-secondary' : btnStyle == 'secondary'}">
+    :class="{'btn-primary' : btnStyle == 'primary', 'btn-secondary' : btnStyle == 'secondary'}"
+    @click="$emit('click')">
     {{text}}
   </button>
 </template>

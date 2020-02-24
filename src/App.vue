@@ -57,4 +57,8 @@ export default {
   max-width: 550px;
   margin: 60px auto 0;
 }
+
+.task-list {
+  margin-bottom: 10px;
+}
 </style>

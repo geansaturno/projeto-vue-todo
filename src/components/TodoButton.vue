@@ -1,10 +1,6 @@
 <template>
   <button class="todo-btn btn"
-    :class="{
-      'btn-primary' : btnStyle == 'primary',
-      'btn-secondary' : btnStyle == 'secondary',
-      'btn-danger' : btnStyle == 'danger'
-      }"
+    :class="`btn-${btnStyle}`"
     @click="$emit('click')">
     {{text}}
     <i v-if="icon" :data-feather="icon"/>

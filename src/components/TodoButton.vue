@@ -29,15 +29,6 @@ export default {
       default: '',
     },
   },
-  methods: {
-    getIcon() {
-      if (!this.icon && !feather.icons[this.icon]) {
-        return '';
-      }
-
-      return feather.icons[this.icon].toSvg();
-    },
-  },
   mounted() {
     feather.replace();
   },

@@ -18,23 +18,50 @@ describe('Todo Button', () => {
     });
   });
 
-  describe('Estilo', () => {
-    it('Deve ter o estilo primario por padrão', () => {
+  describe('Estilo Padrão', () => {
+    it('O estilo padrão deve ser primary', () => {
       const cp = shallowMount(TodoButton, { propsData: { text: 'Apagar' } });
 
       expect(cp.classes()).toContain('btn-primary');
     });
+  });
 
-    it('Se passar o estilo como primário deve ser primário', () => {
+  describe('Estilo primário', () => {
+    const expectedClass = 'btn-primary';
+    it(`Deve ter a classe ${expectedClass}`, () => {
       const cp = shallowMount(TodoButton, { propsData: { text: 'Apagar', btnStyle: 'primary' } });
 
-      expect(cp.classes()).toContain('btn-primary');
+      expect(cp.classes()).toContain(expectedClass);
     });
+  });
 
-    it('Se passar o estilo como secundário deve ser secundário', () => {
+  describe('Estilo secundário', () => {
+    const expectedClass = 'btn-secondary';
+
+    it(`Deve ter a classe ${expectedClass}`, () => {
       const cp = shallowMount(TodoButton, { propsData: { text: 'Apagar', btnStyle: 'secondary' } });
 
-      expect(cp.classes()).toContain('btn-secondary');
+      expect(cp.classes()).toContain(expectedClass);
+    });
+  });
+
+  describe('Estilo Perigo', () => {
+    const expectedClass = 'btn-danger';
+
+    it(`Deve ter a classe ${expectedClass}`, () => {
+      const cp = shallowMount(TodoButton, { propsData: { text: 'Apagar', btnStyle: 'danger' } });
+
+      expect(cp.classes()).toContain(expectedClass);
+    });
+  });
+
+  describe('Com icone', () => {
+    it('Deve ter o icone de lixeira', () => {
+      const desiredIcon = 'trash';
+
+      const cp = shallowMount(TodoButton, { propsData: { text: 'Apagar', icon: desiredIcon } });
+
+      expect(cp.get(`[data-feather=${desiredIcon}]`)).toBeDefined();
     });
   });
 

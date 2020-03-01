@@ -1,12 +1,19 @@
 <template>
   <button class="todo-btn btn"
-    :class="{'btn-primary' : btnStyle == 'primary', 'btn-secondary' : btnStyle == 'secondary'}"
+    :class="{
+      'btn-primary' : btnStyle == 'primary',
+      'btn-secondary' : btnStyle == 'secondary',
+      'btn-danger' : btnStyle == 'danger'
+      }"
     @click="$emit('click')">
     {{text}}
+    <i v-if="icon" :data-feather="icon"/>
   </button>
 </template>
 
 <script>
+import feather from 'feather-icons';
+
 export default {
   props: {
     text: {
@@ -17,6 +24,22 @@ export default {
       type: String,
       default: 'primary',
     },
+    icon: {
+      type: String,
+      default: '',
+    },
+  },
+  methods: {
+    getIcon() {
+      if (!this.icon && !feather.icons[this.icon]) {
+        return '';
+      }
+
+      return feather.icons[this.icon].toSvg();
+    },
+  },
+  mounted() {
+    feather.replace();
   },
 };
 </script>

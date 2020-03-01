@@ -16,3 +16,13 @@ export const Secundário = () => ({
   components: { TodoButton },
   template: '<todo-button :text="\'Apagar\'" :btnStyle="\'secondary\'"></todo-button>',
 });
+
+export const Perigo = () => ({
+  components: { TodoButton },
+  template: '<todo-button :text="\'Apagar\'" :btnStyle="\'danger\'"></todo-button>',
+});
+
+export const Icone = () => ({
+  components: { TodoButton },
+  template: '<todo-button :text="\'Apagar\'" :btnStyle="\'danger\'" :icon="\'trash\'"></todo-button>',
+});

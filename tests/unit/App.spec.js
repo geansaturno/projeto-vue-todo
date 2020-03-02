@@ -89,7 +89,7 @@ describe('App', () => {
       taskList.at(0).get('.task-status').trigger('click');
       await Vue.nextTick();
 
-      cp.get('.todo-btn').trigger('click');
+      cp.get('.todo-btn.btn-secondary').trigger('click');
       await Vue.nextTick();
 
       taskList = cp.findAll('.task-list-item');

@@ -65,6 +65,22 @@ describe('Todo Button', () => {
     });
   });
 
+  describe('Com estilo customizado', () => {
+    const expectedClass = 'button-test';
+
+    it(`Deve ter a classe ${expectedClass}`, () => {
+      const cp = shallowMount(TodoButton, { propsData: { text: 'Testar', customClass: expectedClass } });
+
+      expect(cp.classes()).toContain(expectedClass);
+    });
+
+    it(`Não deve ter a classe ${expectedClass}`, () => {
+      const cp = shallowMount(TodoButton, { propsData: { text: 'Testar' } });
+
+      expect(cp.classes()).not.toContain(expectedClass);
+    });
+  });
+
   describe('Evento', () => {
     it('Deve disparar o evento de clique quando receber o clique', () => {
       const cp = shallowMount(TodoButton, { propsData: { text: 'Apagar' } });

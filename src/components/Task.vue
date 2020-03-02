@@ -2,11 +2,19 @@
   <div class="task" :class="{task_done: done}">
     <div class="task-status" @click="$emit('statusChange')"/>
     <div class="task-name">{{name}}</div>
+    <div class="task-delete" @click="$emit('deleteTask')">
+      <todo-button :icon="'trash'" :btnStyle="'danger'"/>
+    </div>
   </div>
 </template>
 
 <script>
+import TodoButton from '@/components/TodoButton.vue';
+
 export default {
+  components: {
+    TodoButton,
+  },
   props: {
     name: {
       type: String,
@@ -26,6 +34,7 @@ export default {
   border: 1px solid #efefef;
   border-bottom: none;
   display: flex;
+  align-items: center;
 
   &-status {
     width: 20px;
@@ -35,7 +44,9 @@ export default {
   }
 
   &-name {
-    padding-left: 10px;
+    padding: 0 10px;
+    flex-grow: 1;
+    text-align: left;
   }
 
   &_done {

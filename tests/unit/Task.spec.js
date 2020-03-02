@@ -2,28 +2,29 @@ import { shallowMount } from '@vue/test-utils';
 import Task from '@/components/Task.vue';
 
 describe('Taks', () => {
-  it('Deve ter o campo do nome', () => {
+  describe('Comportamento padrão', () => {
     const taskName = 'Ir ao Mercado';
-
     const cp = shallowMount(Task, {
       propsData: {
         name: taskName,
       },
     });
 
-    expect(cp.get('.task-name').text()).toBe(taskName);
-  });
-
-  it('No clique deve disparar um evento de \'statusChange\'', () => {
-    const cp = shallowMount(Task, {
-      propsData: {
-        name: 'Marcar exame',
-        done: true,
-      },
+    it('Deve ter o campo do nome', () => {
+      expect(cp.get('.task-name').text()).toBe(taskName);
     });
 
-    cp.get('.task-status').trigger('click');
-    expect(cp.emitted('statusChange')).not.toBeUndefined();
+    describe('Eventos', () => {
+      it('No clique deve disparar um evento de \'statusChange\'', () => {
+        cp.get('.task-status').trigger('click');
+        expect(cp.emitted('statusChange')).not.toBeUndefined();
+      });
+
+      it('No clique em remover deve enviar o evento de deleteTask', () => {
+        cp.get('.task-delete').trigger('click');
+        expect(cp.emitted('deleteTask')).not.toBeUndefined();
+      });
+    });
   });
 
   describe('Task Done', () => {

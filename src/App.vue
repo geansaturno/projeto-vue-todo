@@ -2,16 +2,21 @@
   <div id="app">
     <todo-title :text="'Tarefas'"/>
     <task-creator @newTask="addTask"/>
-    <task-list :tasks="tasks"/>
-    <todo-button :text="'Apagar Concluidos'" :btnStyle="'secondary'" @click="removeDones"/>
+    <ul class="task-list">
+      <li class="task-list-item" v-for="(task, index) in tasks" v-bind:key="task.id">
+        <task :name="task.name" :done="task.done" @statusChange="task.done = !task.done" @deleteTask="removeTask(index)"/>
+      </li>
+    </ul>
+    <todo-button :customClass="'delete-all'" :text="'Apagar Concluidos'" :btnStyle="'secondary'"
+    @click="removeDones"/>
   </div>
 </template>
 
 <script>
 import TodoTitle from '@/components/TodoTitle.vue';
 import TaskCreator from '@/components/TaskCreator.vue';
-import TaskList from '@/components/TaskList.vue';
 import TodoButton from '@/components/TodoButton.vue';
+import Task from '@/components/Task.vue';
 
 import TaskListStorage from '@/libs/TaskListStorage';
 
@@ -23,7 +28,7 @@ export default {
     TodoTitle,
     TaskCreator,
     TodoButton,
-    TaskList,
+    Task,
   },
   mounted() {
     this.tasks = storage.getTasks();
@@ -43,6 +48,13 @@ export default {
       this.tasks = this.tasks.filter((task) => !task.done);
       storage.setTasks(this.tasks);
     },
+    removeTask(index) {
+      this.tasks.splice(index, 1);
+      storage.setTasks(this.tasks);
+    },
+    toggleTaskStatus(taskIndex) {
+      this.tasks[taskIndex].done = !this.tasks[taskIndex].done;
+    },
   },
 };
 </script>
@@ -61,4 +73,24 @@ export default {
 .task-list {
   margin-bottom: 10px;
 }
+
+.task {
+    &-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 auto;
+      &-item {
+        &:first-child .task{
+          border-top-left-radius: 5px;
+          border-top-right-radius: 5px;
+        }
+
+        &:last-child .task{
+          border-bottom-left-radius: 5px;
+          border-bottom-right-radius: 5px;
+          border-bottom: 1px solid #efeefe
+        }
+      }
+    }
+  }
 </style>

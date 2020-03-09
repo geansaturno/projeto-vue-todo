@@ -2,7 +2,7 @@
   <div class="task" :class="{task_done: done}">
     <div class="task-status" @click="$emit('statusChange')"/>
     <div class="task-name">{{name}}</div>
-    <div class="task-delete" @click="$emit('deleteTask')">
+    <div class="task-delete" @click="emitEvent">
       <todo-button :icon="'trash'" :btnStyle="'danger'"/>
     </div>
   </div>
@@ -23,6 +23,11 @@ export default {
     done: {
       type: Boolean,
       default: false,
+    },
+  },
+  methods: {
+    emitEvent() {
+      this.$emit('deleteTask');
     },
   },
 };

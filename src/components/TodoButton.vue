@@ -1,7 +1,6 @@
 <template>
   <button class="todo-btn btn"
     :class="`btn-${btnStyle} ${customClass}` "
-    :id="id"
     @click="$emit('click')">
     {{text}}
     <i v-if="icon" :data-feather="icon"/>

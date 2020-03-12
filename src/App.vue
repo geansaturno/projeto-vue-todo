@@ -4,7 +4,8 @@
     <task-creator @newTask="addTask"/>
     <ul class="task-list">
       <li class="task-list-item" v-for="(task, index) in tasks" v-bind:key="task.id">
-        <task :name="task.name" :done="task.done" @statusChange="task.done = !task.done" @deleteTask="removeTask(index)"/>
+        <task :name="task.name" :done="task.done" @statusChange="task.done = !task.done"
+          @deleteTask="removeTask(index)"/>
       </li>
     </ul>
     <todo-button :customClass="'delete-all'" :text="'Apagar Concluidos'" :btnStyle="'secondary'"
@@ -41,7 +42,10 @@ export default {
   },
   methods: {
     addTask(task) {
-      this.tasks.push(task);
+      if (this.tasks.length < 10) {
+        this.tasks.push(task);
+      }
+
       storage.setTasks(this.tasks);
     },
     removeDones() {

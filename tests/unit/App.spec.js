@@ -8,29 +8,43 @@ describe('App', () => {
     localStorage.clear();
   });
 
+  let cp;
+  const tasksName = ['Ir ao cabelereiro', 'ir o shopping', 'ir ao pediatra'];
+
+  const createTask = async (taskName) => {
+    const inputTask = cp.get('.task-creator-input');
+    inputTask.setValue(taskName);
+    inputTask.trigger('keyup.enter');
+
+    await Vue.nextTick();
+  };
+
+  const createTasks = async (tasks) => {
+    const inputTask = cp.get('.task-creator-input');
+    tasks.forEach(async (taskName) => {
+      inputTask.setValue(taskName);
+      inputTask.trigger('keyup.enter');
+    });
+
+    await Vue.nextTick();
+  };
+
   describe('Criando tasks', () => {
     describe('Criando uma task', () => {
       it('A task deve ser exibida na lista', async () => {
-        const cp = mount(App);
-        const inputTask = cp.get('.task-creator-input');
+        cp = mount(App);
         const taskName = 'Ir ao cabelereiro';
-        inputTask.setValue(taskName);
-        inputTask.trigger('keyup.enter');
+        await createTask(taskName);
 
-        await Vue.nextTick();
         expect(cp.get('.task')).toBeDefined();
         expect(cp.get('.task-name').text()).toBe(taskName);
         expect(cp.findAll('.task').length).toBe(1);
       });
 
       it('A task deve ser salva no localStorage', async () => {
-        let cp = mount(App);
-        const inputTask = cp.get('.task-creator-input');
+        cp = mount(App);
         const taskName = 'Ir ao cabelereiro';
-        inputTask.setValue(taskName);
-        inputTask.trigger('keyup.enter');
-
-        await Vue.nextTick();
+        await createTask(taskName);
 
         cp = mount(App);
         await Vue.nextTick();
@@ -47,18 +61,10 @@ describe('App', () => {
     });
 
     describe('Criando 3 tasks', () => {
-      const tasksName = ['Ir ao cabelereiro', 'ir o shopping', 'ir ao pediatra'];
-
       it('As tasks devem ser exibidas na lista', async () => {
-        const cp = mount(App);
-        const inputTask = cp.get('.task-creator-input');
+        cp = mount(App);
+        await createTasks(tasksName);
 
-        tasksName.forEach(async (taskName) => {
-          inputTask.setValue(taskName);
-          inputTask.trigger('keyup.enter');
-        });
-
-        await Vue.nextTick();
         expect(cp.findAll('.task').length).toBe(3);
 
         const taskList = cp.findAll('.task-name');
@@ -72,16 +78,10 @@ describe('App', () => {
       });
 
       it('As tasks devem ser adicionadas no localstorage', async () => {
-        let cp = mount(App);
-        const inputTask = cp.get('.task-creator-input');
-
-        tasksName.forEach(async (taskName) => {
-          inputTask.setValue(taskName);
-          inputTask.trigger('keyup.enter');
-        });
+        cp = mount(App);
+        await createTasks(tasksName);
 
         cp = mount(App);
-
         await Vue.nextTick();
 
         const taskList = cp.findAll('.task-list-item');
@@ -99,45 +99,25 @@ describe('App', () => {
   });
 
   describe('Marcando task como done', () => {
-    const tasksName = ['Ir ao cabelereiro', 'ir o shopping', 'ir ao pediatra'];
-
     it('Ao marcar a primeira Task como done, ela deve receber o status de Done', async () => {
-      const cp = mount(App);
-      const inputTask = cp.get('.task-creator-input');
-
-      tasksName.forEach(async (taskName) => {
-        inputTask.setValue(taskName);
-        inputTask.trigger('keyup.enter');
-      });
-
-      await Vue.nextTick();
+      cp = mount(App);
+      await createTasks(tasksName);
 
       cp.get('.task-status').trigger('click');
-
       await Vue.nextTick();
 
       const tasks = cp.findAll('.task');
-
       expect(tasks.at(0).classes()).toContain('task_done');
       expect(tasks.at(1).classes()).not.toContain('task_done');
     });
 
     it('Ao marcar a primeira e a ultima Task como done, elas devem receber o status de Done', async () => {
-      const cp = mount(App);
-      const inputTask = cp.get('.task-creator-input');
-
-      tasksName.forEach(async (taskName) => {
-        inputTask.setValue(taskName);
-        inputTask.trigger('keyup.enter');
-      });
-
-      await Vue.nextTick();
+      cp = mount(App);
+      await createTasks(tasksName);
 
       const tasks = cp.findAll('.task');
-
       tasks.at(0).get('.task-status').trigger('click');
       tasks.at(2).get('.task-status').trigger('click');
-
       await Vue.nextTick();
 
       expect(tasks.at(0).classes()).toContain('task_done');
@@ -148,15 +128,8 @@ describe('App', () => {
 
   describe('Deletando uma Tarefas', () => {
     it('Quando deletar a tarefa, deve ser removida da lista', async () => {
-      const cp = mount(App);
-      const inputTask = cp.get('.task-creator-input');
-
-      const tasksName = ['Ir ao cabelereiro', 'ir o shopping', 'ir ao pediatra'];
-      tasksName.forEach((taskName) => {
-        inputTask.setValue(taskName);
-        inputTask.trigger('keyup.enter');
-      });
-      await Vue.nextTick();
+      cp = mount(App);
+      await createTasks(tasksName);
 
       cp.findAll('.task-delete').at(1).trigger('click');
       await Vue.nextTick();
@@ -166,15 +139,8 @@ describe('App', () => {
     });
 
     it('Quando deletar a tarefa, ela deve ser removida do localstorage', async () => {
-      let cp = mount(App);
-      const inputTask = cp.get('.task-creator-input');
-
-      const tasksName = ['Ir ao cabelereiro', 'ir o shopping', 'ir ao pediatra'];
-      tasksName.forEach((taskName) => {
-        inputTask.setValue(taskName);
-        inputTask.trigger('keyup.enter');
-      });
-      await Vue.nextTick();
+      cp = mount(App);
+      await createTasks(tasksName);
 
       cp.findAll('.task-delete').at(1).trigger('click');
       await Vue.nextTick();
@@ -189,16 +155,8 @@ describe('App', () => {
 
   describe('Deletando todas as tarefas', () => {
     it('Ao clicar em apagar, deve limpar as tarefas concluidas e atualizar o localStorage', async () => {
-      let cp = mount(App);
-      const inputTask = cp.get('.task-creator-input');
-
-      const tasksName = ['Ir ao cabelereiro', 'ir o shopping', 'ir ao pediatra'];
-      tasksName.forEach((taskName) => {
-        inputTask.setValue(taskName);
-        inputTask.trigger('keyup.enter');
-      });
-
-      await Vue.nextTick();
+      cp = mount(App);
+      await createTasks(tasksName);
 
       let taskList = cp.findAll('.task-list-item');
       taskList.at(0).get('.task-status').trigger('click');
@@ -208,7 +166,6 @@ describe('App', () => {
       await Vue.nextTick();
 
       taskList = cp.findAll('.task-list-item');
-
       expect(taskList).toHaveLength(2);
 
       cp = mount(App);
@@ -216,6 +173,27 @@ describe('App', () => {
       taskList = cp.findAll('.task-list-item');
 
       expect(taskList).toHaveLength(2);
+    });
+  });
+
+  describe('Criando mais de 10 tasks', () => {
+    it('Não deve permitir criar a 11ª tarefa', async () => {
+      cp = mount(App);
+      await createTasks([
+        'Ir ao mercado',
+        'Ir ao médico',
+        'Ir ao dentista',
+        'Finalizar trabalho',
+        'Ler o livro',
+        'Estudar matemática',
+        'Comprar mochila',
+        'Comprar macarrão',
+        'Comprar cebola',
+        'Comprar alho',
+      ]);
+      await createTask('Comprar miojo');
+
+      expect(cp.findAll('.task')).toHaveLength(10);
     });
   });
 });

@@ -53,12 +53,10 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
         6 | 5 |   11
 
         ```javascript
-
             function seq(x, y) {
                 const result = x + y
                 return result
             }
-
         ```
 
         2. Seleção
@@ -72,7 +70,6 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
         11 |    21
 
         ```javascript
-
             function condicao(x) {
                 let result = 0
 
@@ -84,22 +81,20 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
                 return result
             }
-
         ```
 
         3. Interação
-        
-        List
-        --------------------
-        EMpty
-        1 item
-        2 items
-        Padrão x items
-        Maximo y items
-        Maximo y + i items
+
+        List                |
+        --------------------|
+        Empty               |
+        1 item              |
+        2 items             |
+        Padrão x items      |
+        Maximo y items      | 
+        Maximo y + i items  |
 
         ```javascript
-
             function loop(lista) {
                 lista.forEach(item => {
                     fazAlgo(item)
@@ -107,7 +102,6 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
                 return lista
             }
-
         ```
 
 

@@ -52,5 +52,5 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
         3. Cobertura do teste
 
 ### Referencias
-https://testautomationu.applitools.com/unit-testing/
-https://github.com/goldbergyoni/javascript-testing-best-practices/
+* https://testautomationu.applitools.com/unit-testing/
+* https://github.com/goldbergyoni/javascript-testing-best-practices/

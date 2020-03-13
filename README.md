@@ -42,7 +42,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
     1. Teste caixa branca e caixa preta
     2. Teste enxuto (Exemplo)
     3. Tabela de teste
-        1. Sequencia
+        * Sequencia
 
         x | y | Expected
         --|---|----------
@@ -61,7 +61,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
         ```
 
-        2. Seleção
+        * Seleção
 
         x  | Expected
         ---|----------
@@ -87,7 +87,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
         ```
 
-        3. Interação
+        * Interação
 
         List                |
         --------------------|

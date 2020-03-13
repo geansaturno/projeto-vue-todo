@@ -1,5 +1,6 @@
 import { mount } from '@vue/test-utils';
 import App from '@/App.vue';
+import Task from '@/models/Task.model';
 
 import Vue from 'vue';
 
@@ -220,10 +221,30 @@ describe('App', () => {
       await createTask(newTaskName);
 
       const tasks = cp.findAll('.task-name');
-      // expect(tasks).toHaveLength(10);
+      expect(tasks).toHaveLength(10);
       tasks.wrappers.forEach((task) => {
         expect(task.text()).not.toBe(newTaskName);
       });
+    });
+
+    it('Verificar se o método addTask não adiciona a 11ª task', () => {
+      cp = mount(App);
+      cp.vm.$data.tasks = [
+        new Task('Ir ao mercado'),
+        new Task('Ir ao médico'),
+        new Task('Ir ao dentista'),
+        new Task('Finalizar trabalho'),
+        new Task('Ler o livro'),
+        new Task('Estudar matemática'),
+        new Task('Comprar mochila'),
+        new Task('Comprar macarrão'),
+        new Task('Comprar cebola'),
+        new Task('Comprar alho'),
+      ];
+
+      cp.vm.addTask(new Task('Comprar cenouras'));
+
+      expect(cp.vm.$data.tasks).toHaveLength(10);
     });
   });
 });

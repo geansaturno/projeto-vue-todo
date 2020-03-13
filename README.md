@@ -52,14 +52,17 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
         0 | 9 |   9
         6 | 5 |   11
 
-        ~~~javascript
+        ```javascript
+
             function seq(x, y) {
                 const result = x + y
                 return result
             }
-        ~~~
+
+        ```
 
         2. Seleção
+
         x  | Expected
         ---|----------
         20 |    30
@@ -68,7 +71,8 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
         10 |    0
         11 |    21
 
-        ~~~javascript
+        ```javascript
+
             function condicao(x) {
                 let result = 0
 
@@ -81,9 +85,10 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
                 return result
             }
 
-        ~~~
+        ```
 
         3. Interação
+        
         List
         --------------------
         EMpty
@@ -93,7 +98,8 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
         Maximo y items
         Maximo y + i items
 
-        ~~~javascript
+        ```javascript
+
             function loop(lista) {
                 lista.forEach(item => {
                     fazAlgo(item)
@@ -101,7 +107,8 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
                 return lista
             }
-        ~~~
+
+        ```
 
 
 5. Vue-test-utils

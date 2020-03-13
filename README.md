@@ -40,6 +40,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 4. Teoria de testes
     1. Teste caixa branca e caixa preta
+        ![Teste caixa branca e caxa preta](https://github.com/goldbergyoni/javascript-testing-best-practices/blob/master/assets/headspace.png)
     2. Teste enxuto (Exemplo)
     3. Tabela de teste
         * Sequencia

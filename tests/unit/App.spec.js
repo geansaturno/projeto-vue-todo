@@ -29,11 +29,18 @@ describe('App', () => {
     await Vue.nextTick();
   };
 
+  const checkTask = async (index) => {
+    const taskList = cp.findAll('.task-status');
+    taskList.at(index).trigger('click');
+    await Vue.nextTick();
+  };
+
   describe('Criando tasks', () => {
     describe('Criando uma task', () => {
       it('A task deve ser exibida na lista', async () => {
         cp = mount(App);
         const taskName = 'Ir ao cabelereiro';
+
         await createTask(taskName);
 
         expect(cp.get('.task')).toBeDefined();
@@ -154,25 +161,43 @@ describe('App', () => {
   });
 
   describe('Deletando todas as tarefas', () => {
-    it('Ao clicar em apagar, deve limpar as tarefas concluidas e atualizar o localStorage', async () => {
+    it('Ao clicar em apagar, deve limpar as tarefas concluidas', async () => {
+      // Arrange
       cp = mount(App);
       await createTasks(tasksName);
 
-      let taskList = cp.findAll('.task-list-item');
-      taskList.at(0).get('.task-status').trigger('click');
-      await Vue.nextTick();
-
+      // Act
+      await checkTask(0);
       cp.get('.delete-all').trigger('click');
       await Vue.nextTick();
 
-      taskList = cp.findAll('.task-list-item');
+      // Assert
+      const taskList = cp.findAll('.task-name');
       expect(taskList).toHaveLength(2);
+      taskList.wrappers.forEach((task) => {
+        expect(task.text()).not.toBe(tasksName[0]);
+      });
+    });
 
+    it('Ao clicar em apagar, deve atualizar o localStorage', async () => {
+      // Arrange
+      cp = mount(App);
+      await createTasks(tasksName);
+
+      // Act
+      await checkTask(0);
+      cp.get('.delete-all').trigger('click');
+      await Vue.nextTick();
+
+      // Assert
       cp = mount(App);
       await Vue.nextTick();
-      taskList = cp.findAll('.task-list-item');
+      const taskList = cp.findAll('.task-name');
 
       expect(taskList).toHaveLength(2);
+      taskList.wrappers.forEach((task) => {
+        expect(task.text()).not.toBe(tasksName[0]);
+      });
     });
   });
 
@@ -191,9 +216,14 @@ describe('App', () => {
         'Comprar cebola',
         'Comprar alho',
       ]);
-      await createTask('Comprar miojo');
+      const newTaskName = 'Comprar miojo';
+      await createTask(newTaskName);
 
-      expect(cp.findAll('.task')).toHaveLength(10);
+      const tasks = cp.findAll('.task-name');
+      // expect(tasks).toHaveLength(10);
+      tasks.wrappers.forEach((task) => {
+        expect(task.text()).not.toBe(newTaskName);
+      });
     });
   });
 });

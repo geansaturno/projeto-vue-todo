@@ -42,6 +42,67 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
     1. Teste caixa branca e caixa preta
     2. Teste enxuto (Exemplo)
     3. Tabela de teste
+        1. Sequencia
+
+        x | y | Expected
+        --|---|----------
+        0 | 0 |   0
+        2 | 2 |   4
+        7 | 0 |   7
+        0 | 9 |   9
+        6 | 5 |   11
+
+        ~~~javascript
+            function seq(x, y) {
+                const result = x + y
+                return result
+            }
+        ~~~
+
+        2. Seleção
+        x  | Expected
+        ---|----------
+        20 |    30
+        -10|   -20
+        9  |   -1
+        10 |    0
+        11 |    21
+
+        ~~~javascript
+            function condicao(x) {
+                let result = 0
+
+                if(x > 10) {
+                    result = x + 10
+                } else {
+                    result = x - 10
+                }
+
+                return result
+            }
+
+        ~~~
+
+        3. Interação
+        List
+        --------------------
+        EMpty
+        1 item
+        2 items
+        Padrão x items
+        Maximo y items
+        Maximo y + i items
+
+        ~~~javascript
+            function loop(lista) {
+                lista.forEach(item => {
+                    fazAlgo(item)
+                })
+
+                return lista
+            }
+        ~~~
+
 
 5. Vue-test-utils
     1. intro

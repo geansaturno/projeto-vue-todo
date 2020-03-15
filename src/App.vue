@@ -3,10 +3,12 @@
     <todo-title :text="'Tarefas'"/>
     <task-creator @newTask="addTask"/>
     <ul class="task-list">
-      <li class="task-list-item" v-for="(task, index) in tasks" v-bind:key="task.id">
-        <task :name="task.name" :done="task.done" @statusChange="task.done = !task.done"
-          @deleteTask="removeTask(index)"/>
-      </li>
+      <transition-group name="side-fade">
+        <li class="task-list-item" v-for="(task, index) in tasks" v-bind:key="task.id">
+          <task :name="task.name" :done="task.done" @statusChange="task.done = !task.done"
+            @deleteTask="removeTask(index)"/>
+        </li>
+      </transition-group>
     </ul>
     <todo-button :customClass="'delete-all'" :text="'Apagar Concluidos'" :btnStyle="'secondary'"
     @click="removeDones"/>
@@ -96,5 +98,13 @@ export default {
         }
       }
     }
+  }
+
+  .side-fade-enter-active, .side-fade-leave-active {
+    transition: opacity .5s, translate .5s;
+  }
+
+  .side-fade-enter, .side-fade-leave-to {
+    opacity: 0;
   }
 </style>

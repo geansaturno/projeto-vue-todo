@@ -4,7 +4,7 @@ import Task from '@/models/Task.model';
 
 import Vue from 'vue';
 
-describe('App', () => {
+describe('Lista de tarefas', () => {
   afterEach(() => {
     localStorage.clear();
   });
@@ -104,6 +104,53 @@ describe('App', () => {
         });
       });
     });
+
+    describe('Criando mais de 10 tasks', () => {
+      it('Não deve permitir criar a 11ª tarefa', async () => {
+        cp = mount(App);
+        await createTasks([
+          'Ir ao mercado',
+          'Ir ao médico',
+          'Ir ao dentista',
+          'Finalizar trabalho',
+          'Ler o livro',
+          'Estudar matemática',
+          'Comprar mochila',
+          'Comprar macarrão',
+          'Comprar cebola',
+          'Comprar alho',
+        ]);
+        const newTaskName = 'Comprar miojo';
+        await createTask(newTaskName);
+
+        const tasks = cp.findAll('.task-name');
+        expect(tasks).toHaveLength(10);
+        tasks.wrappers.forEach((task) => {
+          expect(task.text()).not.toBe(newTaskName);
+        });
+      });
+
+      it('Verificar se o método addTask não adiciona a 11ª task', () => {
+        cp = mount(App);
+        cp.vm.$data.tasks = [
+          new Task('Ir ao mercado'),
+          new Task('Ir ao médico'),
+          new Task('Ir ao dentista'),
+          new Task('Finalizar trabalho'),
+          new Task('Ler o livro'),
+          new Task('Estudar matemática'),
+          new Task('Comprar mochila'),
+          new Task('Comprar macarrão'),
+          new Task('Comprar cebola'),
+          new Task('Comprar alho'),
+        ];
+
+
+        cp.vm.addTask(new Task('Comprar cenouras'));
+
+        expect(cp.vm.$data.tasks).toHaveLength(10);
+      });
+    });
   });
 
   describe('Marcando task como done', () => {
@@ -199,52 +246,6 @@ describe('App', () => {
       taskList.wrappers.forEach((task) => {
         expect(task.text()).not.toBe(tasksName[0]);
       });
-    });
-  });
-
-  describe('Criando mais de 10 tasks', () => {
-    it('Não deve permitir criar a 11ª tarefa', async () => {
-      cp = mount(App);
-      await createTasks([
-        'Ir ao mercado',
-        'Ir ao médico',
-        'Ir ao dentista',
-        'Finalizar trabalho',
-        'Ler o livro',
-        'Estudar matemática',
-        'Comprar mochila',
-        'Comprar macarrão',
-        'Comprar cebola',
-        'Comprar alho',
-      ]);
-      const newTaskName = 'Comprar miojo';
-      await createTask(newTaskName);
-
-      const tasks = cp.findAll('.task-name');
-      expect(tasks).toHaveLength(10);
-      tasks.wrappers.forEach((task) => {
-        expect(task.text()).not.toBe(newTaskName);
-      });
-    });
-
-    it('Verificar se o método addTask não adiciona a 11ª task', () => {
-      cp = mount(App);
-      cp.vm.$data.tasks = [
-        new Task('Ir ao mercado'),
-        new Task('Ir ao médico'),
-        new Task('Ir ao dentista'),
-        new Task('Finalizar trabalho'),
-        new Task('Ler o livro'),
-        new Task('Estudar matemática'),
-        new Task('Comprar mochila'),
-        new Task('Comprar macarrão'),
-        new Task('Comprar cebola'),
-        new Task('Comprar alho'),
-      ];
-
-      cp.vm.addTask(new Task('Comprar cenouras'));
-
-      expect(cp.vm.$data.tasks).toHaveLength(10);
     });
   });
 });

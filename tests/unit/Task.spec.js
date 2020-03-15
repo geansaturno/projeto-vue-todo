@@ -1,7 +1,7 @@
 import { shallowMount } from '@vue/test-utils';
 import Task from '@/components/Task.vue';
 
-describe('Taks', () => {
+describe('Componente Task', () => {
   describe('Comportamento padrão', () => {
     const taskName = 'Ir ao Mercado';
     const cp = shallowMount(Task, {
@@ -15,7 +15,7 @@ describe('Taks', () => {
     });
 
     describe('Eventos', () => {
-      it('No clique deve disparar um evento de \'statusChange\'', () => {
+      it('No clique em checked deve disparar um evento de \'statusChange\'', () => {
         cp.get('.task-status').trigger('click');
         expect(cp.emitted('statusChange')).not.toBeUndefined();
       });

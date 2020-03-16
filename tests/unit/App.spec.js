@@ -1,6 +1,8 @@
 import { mount } from '@vue/test-utils';
 import App from '@/App.vue';
+
 import Task from '@/models/Task.model';
+import MetricsModel from '@/models/Metrics.model';
 
 import Vue from 'vue';
 
@@ -190,10 +192,7 @@ describe('Lista de tarefas', () => {
         mockMetrics();
         checkTask(0);
 
-        expect(cp.vm.metrics.send.mock.calls[0][0]).toStrictEqual({
-          position: 'posicao-1',
-          label: 'change-status',
-        });
+        expect(cp.vm.metrics.send.mock.calls[0][0]).toStrictEqual(new MetricsModel('posicao-1', 'change-status'));
       });
 
       it('Deve enviar as métricas corretas do terceiro item', async () => {
@@ -202,10 +201,7 @@ describe('Lista de tarefas', () => {
         mockMetrics();
         checkTask(2);
 
-        expect(cp.vm.metrics.send.mock.calls[0][0]).toStrictEqual({
-          position: 'posicao-3',
-          label: 'change-status',
-        });
+        expect(cp.vm.metrics.send.mock.calls[0][0]).toStrictEqual(new MetricsModel('posicao-3', 'change-status'));
       });
     });
   });

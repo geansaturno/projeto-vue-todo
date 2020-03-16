@@ -1,4 +1,5 @@
 import Metrics from '@/libs/Metrics';
+import MetricsModel from '@/models/Metrics.model';
 
 describe('Lib de métricas', () => {
   let metrics;
@@ -7,10 +8,7 @@ describe('Lib de métricas', () => {
     metrics = new Metrics();
     metrics.googleAnalitics.sendMetrics = jest.fn();
 
-    const desiredObject = {
-      position: 'meio',
-      label: 'clique',
-    };
+    const desiredObject = new MetricsModel('meio', 'clique');
 
     metrics.send(desiredObject);
     expect(metrics.googleAnalitics.sendMetrics.mock.calls[0][0]).toStrictEqual(desiredObject);

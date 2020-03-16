@@ -24,6 +24,8 @@ import Task from '@/components/Task.vue';
 import TaskListStorage from '@/libs/TaskListStorage';
 import Metrics from '@/libs/Metrics';
 
+import Metric from '@/models/Metrics.model';
+
 const storage = new TaskListStorage();
 
 export default {
@@ -47,10 +49,7 @@ export default {
   methods: {
     changeTaskStatus(index) {
       this.tasks[index].done = !this.tasks[index].done;
-      this.metrics.send({
-        position: `posicao-${index + 1}`,
-        label: 'change-status',
-      });
+      this.metrics.send(new Metric(`posicao-${index + 1}`, 'change-status'));
     },
     addTask(task) {
       if (this.tasks.length < 10) {

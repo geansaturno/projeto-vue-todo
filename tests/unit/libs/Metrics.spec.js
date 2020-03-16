@@ -1,18 +1,18 @@
 import Metrics from '@/libs/Metrics';
 
 describe('Lib de métricas', () => {
-  let cp;
+  let metrics;
 
   it('Deve disparar as métricas com o objeto recebido', () => {
-    cp = new Metrics();
-    cp.googleAnalitics.sendMetrics = jest.fn();
+    metrics = new Metrics();
+    metrics.googleAnalitics.sendMetrics = jest.fn();
 
     const desiredObject = {
       position: 'meio',
       label: 'clique',
     };
 
-    cp.metrics(desiredObject);
-    expect(cp.googleAnalitics.sendMetrics.mock.calls[0][0]).toBe(desiredObject);
+    metrics.send(desiredObject);
+    expect(metrics.googleAnalitics.sendMetrics.mock.calls[0][0]).toBe(desiredObject);
   });
 });

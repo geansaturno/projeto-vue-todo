@@ -8,7 +8,7 @@ export default class Metrics {
     };
   }
 
-  metrics(obj) {
+  send(obj) {
     this.googleAnalitics.sendMetrics(obj);
   }
 }

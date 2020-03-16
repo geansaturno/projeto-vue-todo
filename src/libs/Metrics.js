@@ -3,7 +3,7 @@ export default class Metrics {
   constructor() {
     this.googleAnalitics = {
       sendMetrics: (obj) => {
-        console.log(obj);
+        // console.log(obj);
       },
     };
   }

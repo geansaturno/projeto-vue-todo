@@ -36,6 +36,10 @@ describe('Lista de tarefas', () => {
     await Vue.nextTick();
   };
 
+  const mockMetrics = () => {
+    cp.vm.metrics.send = jest.fn();
+  };
+
   describe('Criando tasks', () => {
     describe('Criando uma task', () => {
       it('A task deve ser exibida na lista', async () => {
@@ -145,7 +149,6 @@ describe('Lista de tarefas', () => {
           new Task('Comprar alho'),
         ];
 
-
         cp.vm.addTask(new Task('Comprar cenouras'));
 
         expect(cp.vm.$data.tasks).toHaveLength(10);
@@ -178,6 +181,32 @@ describe('Lista de tarefas', () => {
       expect(tasks.at(0).classes()).toContain('task_done');
       expect(tasks.at(1).classes()).not.toContain('task_done');
       expect(tasks.at(2).classes()).toContain('task_done');
+    });
+
+    describe('Metricas', () => {
+      it('Deve disparar a métrica corretas do primeiro item ', async () => {
+        cp = mount(App);
+        await createTasks(tasksName);
+        mockMetrics();
+        checkTask(0);
+
+        expect(cp.vm.metrics.send.mock.calls[0][0]).toStrictEqual({
+          position: 'posicao-1',
+          label: 'change-status',
+        });
+      });
+
+      it('Deve enviar as métricas corretas do terceiro item', async () => {
+        cp = mount(App);
+        await createTasks(tasksName);
+        mockMetrics();
+        checkTask(2);
+
+        expect(cp.vm.metrics.send.mock.calls[0][0]).toStrictEqual({
+          position: 'posicao-3',
+          label: 'change-status',
+        });
+      });
     });
   });
 

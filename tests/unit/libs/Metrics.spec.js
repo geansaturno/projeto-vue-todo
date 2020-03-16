@@ -13,6 +13,6 @@ describe('Lib de métricas', () => {
     };
 
     metrics.send(desiredObject);
-    expect(metrics.googleAnalitics.sendMetrics.mock.calls[0][0]).toBe(desiredObject);
+    expect(metrics.googleAnalitics.sendMetrics.mock.calls[0][0]).toStrictEqual(desiredObject);
   });
 });

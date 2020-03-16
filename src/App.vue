@@ -5,7 +5,7 @@
     <ul class="task-list">
       <transition-group name="side-fade">
         <li class="task-list-item" v-for="(task, index) in tasks" v-bind:key="task.id">
-          <task :name="task.name" :done="task.done" @statusChange="task.done = !task.done"
+          <task :name="task.name" :done="task.done" @statusChange="changeTaskStatus(index)"
             @deleteTask="removeTask(index)"/>
         </li>
       </transition-group>
@@ -22,6 +22,7 @@ import TodoButton from '@/components/TodoButton.vue';
 import Task from '@/components/Task.vue';
 
 import TaskListStorage from '@/libs/TaskListStorage';
+import Metrics from '@/libs/Metrics';
 
 const storage = new TaskListStorage();
 
@@ -40,9 +41,17 @@ export default {
     return {
       tasks: [
       ],
+      metrics: new Metrics(),
     };
   },
   methods: {
+    changeTaskStatus(index) {
+      this.tasks[index].done = !this.tasks[index].done;
+      this.metrics.send({
+        position: `posicao-${index + 1}`,
+        label: 'change-status',
+      });
+    },
     addTask(task) {
       if (this.tasks.length < 10) {
         this.tasks.push(task);

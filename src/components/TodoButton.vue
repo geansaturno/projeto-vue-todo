@@ -3,7 +3,7 @@
     :class="`btn-${btnStyle} ${customClass}` "
     @click="$emit('click')">
     {{text}}
-    <i v-if="icon" :data-feather="icon"/>
+    <i v-if="icon" v-html="getSvg"/>
   </button>
 </template>
 
@@ -29,8 +29,10 @@ export default {
       default: '',
     },
   },
-  mounted() {
-    feather.replace();
+  computed: {
+    getSvg() {
+      return feather.icons[this.icon].toSvg();
+    },
   },
 };
 </script>

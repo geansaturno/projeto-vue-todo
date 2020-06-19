@@ -61,7 +61,7 @@ describe('Todo Button', () => {
 
       const cp = shallowMount(TodoButton, { propsData: { text: 'Apagar', icon: desiredIcon } });
 
-      expect(cp.get(`[data-feather=${desiredIcon}]`)).toBeDefined();
+      expect(cp.get(`svg.feather.feather-${desiredIcon}`)).toBeDefined();
     });
   });
 

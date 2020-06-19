@@ -40,6 +40,7 @@ export default {
   border-bottom: none;
   display: flex;
   align-items: center;
+  max-width: 600px;
 
   &-status {
     width: 20px;

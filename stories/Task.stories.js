@@ -1,13 +1,21 @@
+import { withKnobs, text, boolean } from '@storybook/addon-knobs';
 import Task from '../src/components/Task.vue';
 
-export default { title: 'Task' };
+export default {
+  title: 'Task',
+  components: Task,
+  decorators: [withKnobs],
+};
 
 export const Default = () => ({
   components: { Task },
-  template: '<task :name="\'Ir ao médico\'" :action="function(){}"></task>',
-});
-
-export const Done = () => ({
-  components: { Task },
-  template: '<task :name="\'Ir ao mercado\'" :done="true" :action="function(){}"></task>',
+  template: '<task :name="name" :done="done"></task>',
+  props: {
+    name: {
+      default: text('Texto', 'Ir ao médico'),
+    },
+    done: {
+      default: boolean('Done ?', false),
+    },
+  },
 });

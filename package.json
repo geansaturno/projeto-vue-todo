@@ -13,14 +13,15 @@
   "dependencies": {
     "core-js": "^3.6.4",
     "feather-icons": "^4.26.0",
-    "vue": "^2.6.11"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.8.4",
+    "vue": "^2.6.11",
+    "@storybook/addon-knobs": "^5.3.19",
     "@storybook/addon-actions": "^5.3.12",
     "@storybook/addon-links": "^5.3.12",
     "@storybook/addons": "^5.3.12",
-    "@storybook/vue": "^5.3.12",
+    "@storybook/vue": "^5.3.12"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.8.4",
     "@vue/cli-plugin-babel": "~4.2.0",
     "@vue/cli-plugin-eslint": "~4.2.0",
     "@vue/cli-plugin-unit-jest": "~4.2.0",
